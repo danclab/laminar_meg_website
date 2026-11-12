@@ -1,0 +1,37 @@
+{{- $papers := partial "papers/all.html" -}}
+
+{{- /* 1. Take keys in order of apparition */ -}}
+{{- $ids := slice -}}
+{{- range findRESubmatch `\]\(paper:([^)\s"]+)` .Page.RawContent -}}
+  {{- $ids = $ids | append (index . 1) -}}
+{{- end -}}
+{{- $ids = $ids | uniq -}}
+
+{{- if $ids -}}
+<section class="bibliography">
+  <h3>References</h3>
+  <ol>
+    {{- range $ids -}}
+      {{- $id := . -}}
+      {{- $p := index $papers $id -}}
+      {{- if not $p -}}
+        {{- errorf "bibliography: paper %q not found in data/papers (%s)" $id $.Page.File.Path -}}
+      {{- end }}
+      <li id="ref-{{ $id | urlize }}">
+        {{- with $p.author -}}
+          {{- $n := len . -}}
+          {{- range $i, $a := first 3 . -}}
+            {{- if $i }}, {{ end -}}
+            {{- $a.family }}{{ with $a.given }} {{ substr . 0 1 }}.{{ end -}}
+          {{- end -}}
+          {{- if gt $n 3 }} et al.{{ end -}}
+        {{- end -}}
+        {{- with $p.issued }} ({{ index (index . "date-parts") 0 0 }}){{ end }}.
+        {{ $p.title }}.
+        {{ with index $p "container-title" }}<em>{{ . }}</em>.{{ end }}
+        {{ with $p.DOI }}<a class="link" href="https://doi.org/{{ . }}" target="_blank" rel="noopener">doi</a>{{ end }}
+      </li>
+    {{- end }}
+  </ol>
+</section>
+{{- end -}}

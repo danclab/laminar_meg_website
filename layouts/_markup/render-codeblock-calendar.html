@@ -1,0 +1,5 @@
+{{- $data := .Inner | transform.Unmarshal -}}
+{{- partial "article/components/calendar.html" (dict
+    "Title"  $data.title
+    "Events" $data.events
+) -}}

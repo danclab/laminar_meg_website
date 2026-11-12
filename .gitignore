@@ -1,0 +1,27 @@
+# Hugo generated files
+/public/
+/resources/_gen/
+.hugo_build.lock
+hugo_stats.json
+
+# Netlify local files
+.netlify/
+
+# Node.js dependencies (if used by the theme)
+node_modules/
+npm-debug.log*
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.idea/
+.vscode/
+*.swp
+*~

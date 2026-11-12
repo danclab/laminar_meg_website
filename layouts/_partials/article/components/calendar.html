@@ -1,0 +1,73 @@
+{{- $title := .Title | default "Calendrier" -}}
+{{- $events := sort (.Events | default slice) "date" -}}
+{{- $currentMonth := "" -}}
+
+<div class="calendar-box">
+  <h3 class="calendar-box-title">{{ $title }}</h3>
+
+  {{- range $events -}}
+    {{- $e := . -}}
+    {{- $d := time.AsTime $e.date -}}
+    {{- $monthKey := $d.Format "2006-01" -}}
+
+    {{- if ne $monthKey $currentMonth -}}
+      {{- if ne $currentMonth "" -}}
+        </div></div>
+      {{- end -}}
+      {{- $currentMonth = $monthKey -}}
+
+      {{- $year := $d.Year -}}
+      {{- $month := int $d.Month -}}
+      {{- $nextMonth := add $month 1 -}}
+      {{- $nextYear := $year -}}
+      {{- if gt $nextMonth 12 -}}{{- $nextMonth = 1 -}}{{- $nextYear = add $year 1 -}}{{- end -}}
+      {{- $firstOfMonth := time.AsTime (printf "%d-%02d-01T00:00:00Z" $year $month) -}}
+      {{- $firstOfNext := time.AsTime (printf "%d-%02d-01T00:00:00Z" $nextYear $nextMonth) -}}
+      {{- $lastDay := ($firstOfNext.AddDate 0 0 -1).Day -}}
+      {{- $startOffset := mod (add (int $firstOfMonth.Weekday) 6) 7 -}}
+
+      {{- $eventDaysInMonth := slice -}}
+      {{- range $events -}}
+        {{- $ed := time.AsTime .date -}}
+        {{- if and (eq $ed.Year $year) (eq (int $ed.Month) $month) -}}
+          {{- $eventDaysInMonth = $eventDaysInMonth | append $ed.Day -}}
+        {{- end -}}
+      {{- end -}}
+
+      <div class="calendar-month" id="cal-{{ $monthKey }}">
+        <h4 class="calendar-month-title">{{ $d.Format "January 2006" }}</h4>
+        <div class="calendar-grid">
+          <div class="calendar-weekdays">
+            <span>Lu</span><span>Ma</span><span>Me</span><span>Je</span><span>Ve</span><span>Sa</span><span>Di</span>
+          </div>
+          <div class="calendar-days">
+            {{- if gt $startOffset 0 -}}
+              {{- range seq 1 $startOffset }}<span class="calendar-day calendar-day--empty"></span>{{ end -}}
+            {{- end -}}
+            {{- range seq 1 $lastDay -}}
+              {{- $dayNum := . -}}
+              {{- $dateStr := printf "%d-%02d-%02d" $year $month $dayNum -}}
+              {{- if in $eventDaysInMonth $dayNum }}
+                <a href="#cal-day-{{ $dateStr }}" class="calendar-day calendar-day--event">{{ $dayNum }}</a>
+              {{- else }}
+                <span class="calendar-day">{{ $dayNum }}</span>
+              {{- end -}}
+            {{- end -}}
+          </div>
+        </div>
+        <div class="calendar-event-list">
+    {{- end -}}
+
+    <a href="#cal-day-{{ $d.Format "2006-01-02" }}"
+       id="cal-day-{{ $d.Format "2006-01-02" }}"
+       class="calendar-event">
+      <time class="calendar-event-date" datetime="{{ $d.Format "2006-01-02" }}">{{ $d.Format "02 Jan" }}</time>
+      <span class="calendar-event-title">{{ $e.title }}</span>
+      {{- with $e.description }}<p class="calendar-event-desc">{{ . }}</p>{{ end -}}
+    </a>
+  {{- end -}}
+
+  {{- if ne $currentMonth "" -}}
+    </div></div>
+  {{- end -}}
+</div>

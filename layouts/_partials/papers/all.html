@@ -1,0 +1,4 @@
+{{- $s := newScratch -}}
+{{- $s.Set "papers" dict -}}
+{{- partial "papers/walk.html" (dict "s" $s "node" hugo.Data.papers) -}}
+{{- return ($s.Get "papers") -}}

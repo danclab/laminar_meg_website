@@ -1,0 +1,189 @@
+{{ define "main" }}
+    {{ partial "article/article.html" . }}
+
+    {{- $self := . -}}
+    {{- $papers := partial "papers/all.html" -}}
+    {{- $s := newScratch -}}
+    {{- $urls := slice -}}
+
+    {{- /* 1. Scan all pages: papers cited + links declared */ -}}
+    {{- range site.RegularPages -}}
+        {{- $page := . -}}
+        {{- $keys := slice -}}
+        {{- range findRESubmatch `\]\(paper:([^)\s"]+)` .RawContent -}}
+            {{- $keys = $keys | append (index . 1) -}}
+        {{- end -}}
+        {{- range $keys | uniq -}}
+            {{- $s.Add (printf "cite:%s" .) (slice $page) -}}
+        {{- end -}}
+        {{- range .Params.links -}}
+            {{- with .website }}{{ $urls = $urls | append . }}{{ end -}}
+        {{- end -}}
+    {{- end -}}
+
+    <div class="ref-toolbar">
+        <input type="search" id="ref-filter" placeholder="Filter papers (title, author, journal)…">
+        <select id="ref-sort" aria-label="Sort papers by">
+            <option value="year">Year</option>
+            <option value="title">Title</option>
+            <option value="author">First author</option>
+            <option value="journal">Journal</option>
+            <option value="type">Type</option>
+        </select>
+        <button type="button" id="ref-dir" aria-label="Reverse order">↓</button>
+    </div>
+
+    <section class="ref-section">
+        <h2 class="section-title">Papers</h2>
+        <ul class="ref-list" id="ref-papers">
+        {{- range $key, $p := $papers -}}
+            {{- $citedBy := $s.Get (printf "cite:%s" $key) -}}
+            {{- if $citedBy -}}
+                {{- $authors := slice -}}
+                {{- range $p.author -}}
+                    {{- $authors = $authors | append (trim (printf "%s %s" (index . "given" | default "") (index . "family" | default "")) " ") -}}
+                {{- end -}}
+                {{- $first := "" -}}
+                {{- with $p.author }}{{ $first = index (index . 0) "family" | default "" }}{{ end -}}
+                {{- $short := $first -}}
+                {{- if gt (len $authors) 1 }}{{ $short = printf "%s et al." $first }}{{ end -}}
+                {{- $year := "" -}}
+                {{- with $p.issued }}{{ with index . "date-parts" }}{{ $year = printf "%v" (index (index . 0) 0) }}{{ end }}{{ end -}}
+                {{- $journal := index $p "container-title" | default "" -}}
+                {{- $doi := index $p "DOI" | default "" -}}
+                {{- $href := $p.URL -}}
+                {{- if $doi }}{{ $href = printf "https://doi.org/%s" $doi }}{{ end }}
+
+                <li class="ref-item" tabindex="0"
+                    data-year="{{ $year }}"
+                    data-title="{{ lower $p.title }}"
+                    data-author="{{ lower $first }}"
+                    data-journal="{{ lower $journal }}"
+                    data-type="{{ $p.type }}"
+                    data-search="{{ lower (printf "%s %s %s" $p.title (delimit $authors " ") $journal) }}">
+                    <a class="link ref-title" href="{{ $href }}" target="_blank" rel="noopener">{{ $p.title }}</a>
+                    <span class="ref-sub">{{ $short }}{{ with $year }} · {{ . }}{{ end }}{{ with $journal }} · <em>{{ . }}</em>{{ end }}</span>
+                    <span class="ref-cited">Cited in:
+                        {{ range $i, $pg := $citedBy }}{{ if $i }}, {{ end }}<a href="{{ $pg.RelPermalink }}">{{ $pg.Title }}</a>{{ end }}
+                    </span>
+
+                    <div class="ref-src" hidden>
+                        <h3>{{ $p.title }}</h3>
+                        <p class="ref-authors">{{ delimit $authors ", " }}</p>
+                        <p class="ref-meta">{{ $journal }}{{ with $year }} · {{ . }}{{ end }}{{ with $doi }} · DOI {{ . }}{{ end }}</p>
+                        {{ with $p.abstract }}<p class="ref-abstract">{{ . }}</p>{{ end }}
+                    </div>
+                </li>
+            {{- end -}}
+        {{- end -}}
+        </ul>
+    </section>
+
+    <section class="ref-section">
+        <h2 class="section-title">Links</h2>
+        <ul class="ref-list" id="ref-links">
+        {{- range $urls | uniq -}}
+            {{- $url := . -}}
+            {{- $l := newScratch -}}
+            {{- range site.RegularPages -}}
+                {{- $page := . -}}
+                {{- range .Params.links -}}
+                    {{- if eq .website $url -}}
+                        {{- if not ($l.Get "item") }}{{ $l.Set "item" (dict "link" . "page" $page) }}{{ end -}}
+                        {{- $l.Add "pages" (slice $page) -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end -}}
+
+            {{- $item := $l.Get "item" -}}
+            {{- $link := $item.link -}}
+            {{- $img := "" -}}
+            {{- with $link.image -}}
+                {{- $src := . -}}
+                {{- if hasPrefix $src "http" -}}
+                    {{- $img = $src -}}
+                {{- else -}}
+                    {{- $res := $item.page.Resources.Get $src -}}
+                    {{- if not $res }}{{ $res = resources.Get $src }}{{ end -}}
+                    {{- if $res -}}
+                        {{- $img = $res.RelPermalink -}}
+                    {{- else -}}
+                        {{- $img = $src | relURL -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end -}}
+            {{- $pages := $l.Get "pages" | uniq -}}
+
+            <li class="ref-item" tabindex="0">
+                {{ with $img }}<img class="ref-thumb" src="{{ . }}" alt="" loading="lazy">{{ end }}
+                <div>
+                    <a class="link ref-title" href="{{ $url }}" target="_blank" rel="noopener">{{ $link.title }}</a>
+                    {{ with $link.description }}<span class="ref-sub">{{ . }}</span>{{ end }}
+                    <span class="ref-cited">Declared in:
+                        {{ range $i, $pg := $pages }}{{ if $i }}, {{ end }}<a href="{{ $pg.RelPermalink }}">{{ $pg.Title }}</a>{{ end }}
+                    </span>
+                </div>
+                <div class="ref-src" hidden>
+                    <h3>{{ $link.title }}</h3>
+                    {{ with $link.description }}<p>{{ . }}</p>{{ end }}
+                    <p class="ref-meta">{{ $url }}</p>
+                </div>
+            </li>
+        {{- end -}}
+        </ul>
+    </section>
+
+    <script>
+    (() => {
+        const list = document.getElementById('ref-papers');
+        const sel = document.getElementById('ref-sort');
+        const dirBtn = document.getElementById('ref-dir');
+        const filter = document.getElementById('ref-filter');
+        const box = document.getElementById('ref-detail-body');
+        let asc = false;
+
+        const sortPapers = () => {
+            const k = sel.value, m = asc ? 1 : -1;
+            [...list.querySelectorAll('.ref-item')]
+                .sort((a, b) => {
+                    const x = a.dataset[k] || '', y = b.dataset[k] || '';
+                    return (k === 'year' ? Number(x) - Number(y) : x.localeCompare(y)) * m;
+                })
+                .forEach(li => list.appendChild(li));
+            dirBtn.textContent = asc ? '↑' : '↓';
+        };
+        sel.addEventListener('change', () => { asc = sel.value !== 'year'; sortPapers(); });
+        dirBtn.addEventListener('click', () => { asc = !asc; sortPapers(); });
+        filter.addEventListener('input', () => {
+            const q = filter.value.toLowerCase();
+            list.querySelectorAll('.ref-item').forEach(li => {
+                li.hidden = q && !(li.dataset.search || '').includes(q);
+            });
+        });
+
+        // Details in the sidebar (hover or keyboard focus)
+        document.querySelectorAll('.ref-item').forEach(li => {
+            const show = () => {
+                const src = li.querySelector('.ref-src');
+                if (src && box) box.innerHTML = src.innerHTML;
+            };
+            li.addEventListener('mouseenter', show);
+            li.addEventListener('focusin', show);
+        });
+
+        sortPapers();
+    })();
+    </script>
+    {{ partial "footer/footer" . }}
+
+{{ end }}
+
+{{ define "right-sidebar" }}
+    <aside class="sidebar right-sidebar sticky">
+        <section class="widget ref-detail">
+            <div id="ref-detail-body">
+                <p class="ref-placeholder">Hover over a paper or a link to see its details here.</p>
+            </div>
+        </section>
+    </aside>
+{{ end }}

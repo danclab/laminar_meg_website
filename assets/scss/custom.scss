@@ -1,0 +1,245 @@
+/* Place your custom SCSS in HUGO_SITE_FOLDER/assets/scss/custom.scss */
+
+/* Would be placed after .article-list--compact in partials/layout/list.scss*/
+/* Style avec image à gauche, texte à droite */
+.article-list--side-image {
+    --side-image-size: 220px;
+
+    article {
+        .article-header {
+            display: flex;
+            flex-direction: column; // mobile par défaut
+            align-items: stretch;
+        }
+
+        .article-image {
+            img {
+                width: 100%;
+                height: var(--article-image-height);
+                object-fit: cover;
+            }
+        }
+
+        .article-details {
+            padding: var(--card-padding);
+        }
+    }
+
+    @include respond(sm) {
+        article {
+            .article-header {
+                flex-direction: row; // à partir de "sm" et au-dessus
+            }
+
+            .article-image {
+                flex-shrink: 0;
+                width: var(--side-image-size);
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .article-details {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+/* About the calendar view*/
+.calendar-box {
+    @include card-style;
+    padding: var(--card-padding);
+    margin: 1.5em 0;
+
+    .calendar-box-title {
+        margin: 0 0 var(--spacing-md);
+        color: var(--card-text-color-main);
+    }
+
+    .calendar-month {
+        margin-bottom: var(--spacing-xl);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .calendar-month-title {
+        font-size: 1.6rem;
+        text-transform: capitalize;
+        color: var(--card-text-color-secondary);
+        margin: 0 0 var(--spacing-sm);
+    }
+
+    .calendar-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        background-color: var(--card-background-selected, rgba(0, 0, 0, 0.06));
+        border-radius: var(--tag-border-radius);
+        padding: 4px 0;
+
+        span {
+            color: var(--accent-color-text);
+        }
+
+        span:nth-child(n + 6) {
+            color: #7a3bad77;
+        }
+    }
+
+    .calendar-days {
+        background-image: linear-gradient(
+            to right,
+            transparent calc(100% * 5 / 7),
+            rgba(120, 108, 172, 0.048) calc(100% * 5 / 7)
+        );
+        background-repeat: no-repeat;
+        border-radius: var(--tag-border-radius);
+
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+    }
+
+    .calendar-weekdays span {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--card-text-color-tertiary);
+        text-transform: uppercase;
+    }
+
+    .calendar-day {
+        aspect-ratio: 3 / 1 ;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--tag-border-radius);
+        font-size: 1.3rem;
+        color: var(--card-text-color-secondary);
+
+        &--empty {
+            visibility: hidden;
+        }
+
+        &--event {
+            background-color: var(--accent-color);
+            color: var(--accent-color-text);
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: var(--accent-color-darker);
+            }
+        }
+    }
+
+    .calendar-event-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        margin-top: var(--spacing-md);
+    }
+
+    .calendar-event {
+        display: flex;
+        align-items: baseline;
+        gap: var(--spacing-md);
+        padding: var(--spacing-sm);
+        border-radius: var(--tag-border-radius);
+        color: var(--card-text-color-main);
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: var(--card-background-selected, rgba(0, 0, 0, 0.03));
+        }
+
+        &--highlight {
+            background-color: var(--card-background-selected, rgba(0, 0, 0, 0.06));
+        }
+    }
+
+    .calendar-event-date {
+        flex-shrink: 0;
+        font-weight: bold;
+        color: var(--accent-color);
+        font-size: 1.3rem;
+        min-width: 60px;
+    }
+
+    .calendar-event-title {
+        font-weight: 600;
+    }
+
+    .calendar-event-desc {
+        margin: 4px 0 0;
+        font-size: 1.3rem;
+        color: var(--card-text-color-secondary);
+    }
+}
+
+/* about the reference view */
+.ref-toolbar {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-lg) 0;
+
+    input, select, button {
+        background: var(--card-background);
+        color: var(--card-text-color-main);
+        border: 1.5px solid var(--card-separator-color);
+        border-radius: var(--tag-border-radius);
+        padding: 8px 12px;
+        font-size: 1.4rem;
+    }
+    input { flex: 1; }
+    button { cursor: pointer; }
+}
+
+.ref-section { margin-bottom: var(--section-separation); }
+
+.ref-list {
+    @include card-style;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .ref-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+        padding: var(--small-card-padding);
+        transition: background-color 0.2s ease;
+
+        &:not(:last-child) { border-bottom: 1.5px solid var(--card-separator-color); }
+        &:hover, &:focus-within { background: var(--card-background-selected); outline: none; }
+        &[hidden] { display: none; }
+
+        > div:not(.ref-src) { display: flex; flex-direction: column; gap: 2px; }
+    }
+
+    // Paper items have no wrapper div, so stack their children
+    #ref-papers & .ref-item,
+    &#ref-papers .ref-item { flex-direction: column; align-items: flex-start; gap: 2px; }
+
+    .ref-title { font-weight: 600; font-size: 1.6rem; }
+    .ref-sub   { font-size: 1.3rem; color: var(--card-text-color-secondary); }
+    .ref-cited { font-size: 1.2rem; color: var(--card-text-color-tertiary); }
+    .ref-thumb { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+}
+
+.ref-detail {
+    @include card-style;
+    padding: var(--card-padding);
+
+    h3 { margin: 0 0 var(--spacing-sm); font-size: 1.6rem; color: var(--card-text-color-main); }
+    .ref-authors  { font-weight: 600; margin: 0 0 var(--spacing-sm); }
+    .ref-meta     { font-size: 1.3rem; color: var(--card-text-color-tertiary); margin: 0 0 var(--spacing-sm); }
+    .ref-abstract { font-size: 1.3rem; line-height: 1.55; color: var(--card-text-color-secondary); margin: 0;
+                    max-height: 60vh; overflow-y: auto; }
+    .ref-placeholder { color: var(--card-text-color-tertiary); font-size: 1.3rem; margin: 0; }
+}

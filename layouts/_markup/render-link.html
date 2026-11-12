@@ -1,0 +1,24 @@
+{{- if strings.HasPrefix .Destination "link:" -}}
+  {{- $id := strings.TrimPrefix "link:" .Destination -}}
+  {{- $item := false -}}
+  {{- range .Page.Params.links -}}
+    {{- if eq (.id | default "") $id }}{{ $item = . }}{{ end -}}
+  {{- end -}}
+  {{- if not $item -}}
+    {{- errorf "link: id %q introuvable dans le front matter de %s" $id .Page.File.Path -}}
+  {{- end -}}
+  <a class="link" href="{{ $item.website | safeURL }}"
+     {{ with $item.description }}title="{{ . }}"{{ end }}
+     target="_blank" rel="noopener">{{ .Text | safeHTML }}</a>
+{{- else if strings.HasPrefix .Destination "paper:" -}}
+     {{- $id := strings.TrimPrefix "paper:" .Destination -}}
+     {{- $papers := partial "papers/all.html" -}}
+     {{- $p := index $papers $id -}}
+     {{- if not $p }}{{ errorf "paper: %q introuvable dans data/papers (%s)" $id .Page.File.Path }}{{ end -}}
+     <a class="link cite" href="{{ with $p.DOI }}https://doi.org/{{ . }}{{ else }}{{ $p.URL }}{{ end }}"
+        title="{{ $p.title }}" target="_blank" rel="noopener">{{ .Text | safeHTML }}</a>
+{{- else -}}
+  <a class="link" href="{{ .Destination | safeURL }}" {{ with .Title}} title="{{ . }}"
+      {{ end }}{{ if strings.HasPrefix .Destination "http" }} target="_blank" rel="noopener"
+  {{ end }}>{{ .Text | safeHTML }}</a>
+{{- end -}}

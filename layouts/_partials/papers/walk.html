@@ -1,0 +1,18 @@
+{{- $s := .s -}}
+{{- $node := .node -}}
+{{- if reflect.IsSlice $node -}}
+  {{- range $node -}}
+    {{- partial "papers/walk.html" (dict "s" $s "node" .) -}}
+  {{- end -}}
+{{- else if reflect.IsMap $node -}}
+  {{- $key := index $node "citation-key" -}}
+  {{- if and $key (index $node "title") -}}
+    {{- if not (index ($s.Get "papers") (string $key)) -}}
+      {{- $s.SetInMap "papers" (string $key) $node -}}
+    {{- end -}}
+  {{- else -}}
+    {{- range $node -}}
+      {{- partial "papers/walk.html" (dict "s" $s "node" .) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

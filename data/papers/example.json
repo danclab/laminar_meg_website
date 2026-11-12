@@ -1,0 +1,19 @@
+{
+    "citation-key": "test",
+    "title": "This is a test paper",
+    "DOI": "https://url_of_the_test_paper.fr",
+    "author": [                
+        {
+        "family": "John",
+        "given": "Queen"
+        }
+    ],
+    "issued": {
+        "date-parts": [
+            [
+                2012,
+                6
+            ]
+        ]
+    }
+}
