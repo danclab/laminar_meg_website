@@ -38,6 +38,11 @@
     <footer class="article-meta">
         {{ if $showTime }}
             <div class="inline-meta">
+                {{ with $Page.Params.author }}
+                    <div class="inline-meta">
+                        <span>By {{ . }}</span>
+                    </div>
+                {{ end }}
                 {{ if $showDate }}
                     {{ partial "helper/icon" "date" }}
                     <time class="article-time--published" datetime='{{ $Page.Date.Format "2006-01-02T15:04:05Z07:00" }}'>
