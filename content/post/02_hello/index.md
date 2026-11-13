@@ -50,7 +50,7 @@ Some of those original UCL datasets are still ones I look at regularly, almost t
 
 As for this website, there are now people working on laminar SQUID-MEG, OPM-MEG, source reconstruction, simulations, biophysical modelling, and invasive validation in several different groups. We thought it would be useful to have somewhere to talk about work in progress, not just finished papers. In particular, I'd like people to feel comfortable sharing weird results, failed simulations, depth biases, code, and things they aren't sure about yet. These are often the most useful discussions.
 
-We still need much stronger invasive validation and better ways of quantifying uncertainty. But I think we've moved beyond *can MEG tell us anything about cortical depth?* to a more interesting question: *can we use depth and millisecond timing to test circuit-level models in humans?*
+We still need much stronger invasive validation and better ways of quantifying uncertainty. But I think we've moved beyond *can MEG tell us anything about cortical depth?*, to a more interesting question: *can we use depth and millisecond timing to test circuit-level models in humans?*
 
 That's what I'm hoping this community will help us figure out.
 
