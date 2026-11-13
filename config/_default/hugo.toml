@@ -1,3 +1,4 @@
+theme = "hugo-theme-stack"
 baseURL = 'https://example.org/'
 locale = 'en-us'
 title = 'LaminarMEG'
