@@ -1,0 +1,170 @@
+{
+  "items": [
+    {
+      "type": "article-journal",
+      "citation-key": "troebingerHighPrecisionAnatomy2014",
+      "title": "High precision anatomy for MEG",
+      "container-title": "NeuroImage",
+      "volume": "86",
+      "page": "583-591",
+      "DOI": "10.1016/j.neuroimage.2013.07.065",
+      "URL": "https://doi.org/10.1016/j.neuroimage.2013.07.065",
+      "issued": {"date-parts": [[2014]]},
+      "author": [
+        {"family": "Troebinger", "given": "Luzia"},
+        {"family": "López", "given": "José David"},
+        {"family": "Lutti", "given": "Antoine"},
+        {"family": "Bradbury", "given": "David"},
+        {"family": "Bestmann", "given": "Sven"},
+        {"family": "Barnes", "given": "Gareth R."}
+      ]
+    },
+    {
+      "type": "article-journal",
+      "citation-key": "troebingerDiscriminationCorticalLaminae2014",
+      "title": "Discrimination of cortical laminae using MEG",
+      "container-title": "NeuroImage",
+      "volume": "102",
+      "page": "885-893",
+      "DOI": "10.1016/j.neuroimage.2014.07.015",
+      "URL": "https://doi.org/10.1016/j.neuroimage.2014.07.015",
+      "issued": {"date-parts": [[2014]]},
+      "author": [
+        {"family": "Troebinger", "given": "Luzia"},
+        {"family": "López", "given": "José David"},
+        {"family": "Lutti", "given": "Antoine"},
+        {"family": "Bestmann", "given": "Sven"},
+        {"family": "Barnes", "given": "Gareth R."}
+      ]
+    },
+    {
+      "type": "article-journal",
+      "citation-key": "meyerFlexibleHeadcasts2017",
+      "title": "Flexible head-casts for high spatial precision MEG",
+      "container-title": "Journal of Neuroscience Methods",
+      "volume": "276",
+      "page": "38-45",
+      "DOI": "10.1016/j.jneumeth.2016.11.009",
+      "URL": "https://doi.org/10.1016/j.jneumeth.2016.11.009",
+      "issued": {"date-parts": [[2017]]},
+      "author": [
+        {"family": "Meyer", "given": "Sofie S."},
+        {"family": "Bonaiuto", "given": "James J."},
+        {"family": "Lim", "given": "Mark"},
+        {"family": "Rossiter", "given": "Holly E."},
+        {"family": "Waters", "given": "Sheena"},
+        {"family": "Bradbury", "given": "David"},
+        {"family": "Bestmann", "given": "Sven"},
+        {"family": "Brookes", "given": "Matthew"},
+        {"family": "Callaghan", "given": "Martina F."},
+        {"family": "Weiskopf", "given": "Nikolaus"},
+        {"family": "Barnes", "given": "Gareth R."}
+      ]
+    },
+    {
+      "type": "article-journal",
+      "citation-key": "bonaiutoLaminaSpecificCorticalDynamics2018",
+      "title": "Lamina-specific cortical dynamics in human visual and sensorimotor cortices",
+      "container-title": "eLife",
+      "volume": "7",
+      "page": "e33977",
+      "DOI": "10.7554/eLife.33977",
+      "URL": "https://doi.org/10.7554/eLife.33977",
+      "issued": {"date-parts": [[2018]]},
+      "author": [
+        {"family": "Bonaiuto", "given": "James J."},
+        {"family": "Meyer", "given": "Sofie S."},
+        {"family": "Little", "given": "Simon"},
+        {"family": "Rossiter", "given": "Holly E."},
+        {"family": "Callaghan", "given": "Martina F."},
+        {"family": "Dick", "given": "Frederic"},
+        {"family": "Barnes", "given": "Gareth R."},
+        {"family": "Bestmann", "given": "Sven"}
+      ]
+    },
+    {
+      "type": "article-journal",
+      "citation-key": "bonaiutoCorticalColumnOrientation2020",
+      "title": "Estimates of cortical column orientation improve MEG source inversion",
+      "container-title": "NeuroImage",
+      "volume": "216",
+      "page": "116862",
+      "DOI": "10.1016/j.neuroimage.2020.116862",
+      "URL": "https://doi.org/10.1016/j.neuroimage.2020.116862",
+      "issued": {"date-parts": [[2020]]},
+      "author": [
+        {"family": "Bonaiuto", "given": "James J."},
+        {"family": "Afdideh", "given": "Fardin"},
+        {"family": "Ferez", "given": "Maxime"},
+        {"family": "Wagstyl", "given": "Konrad"},
+        {"family": "Mattout", "given": "Jérémie"},
+        {"family": "Bonnefond", "given": "Mathilde"},
+        {"family": "Barnes", "given": "Gareth R."},
+        {"family": "Bestmann", "given": "Sven"}
+      ]
+    },
+    {
+      "type": "article-journal",
+      "citation-key": "bonaiutoLaminarBetaBursts2021",
+      "title": "Laminar dynamics of high amplitude beta bursts in human motor cortex",
+      "container-title": "NeuroImage",
+      "volume": "242",
+      "page": "118479",
+      "DOI": "10.1016/j.neuroimage.2021.118479",
+      "URL": "https://doi.org/10.1016/j.neuroimage.2021.118479",
+      "issued": {"date-parts": [[2021]]},
+      "author": [
+        {"family": "Bonaiuto", "given": "James J."},
+        {"family": "Little", "given": "Simon"},
+        {"family": "Neymotin", "given": "Samuel A."},
+        {"family": "Jones", "given": "Stephanie R."},
+        {"family": "Barnes", "given": "Gareth R."},
+        {"family": "Bestmann", "given": "Sven"}
+      ]
+    },
+    {
+      "type": "article-journal",
+      "citation-key": "helblingLaminarOPMSimulation2025",
+      "title": "Inferring laminar origins of MEG signals with optically pumped magnetometers (OPMs): A simulation study",
+      "container-title": "Imaging Neuroscience",
+      "volume": "3",
+      "page": "imag_a_00410",
+      "DOI": "10.1162/imag_a_00410",
+      "URL": "https://doi.org/10.1162/imag_a_00410",
+      "issued": {"date-parts": [[2025]]},
+      "author": [{"family": "Helbling", "given": "Saskia"}]
+    },
+    {
+      "type": "article-journal",
+      "citation-key": "szulMultilayerMEG2026",
+      "title": "Multilayer MEG source modelling enables depth-resolved laminar inference in humans",
+      "container-title": "Nature Communications",
+      "volume": "17",
+      "page": "10128",
+      "DOI": "10.1038/s41467-026-77782-9",
+      "URL": "https://doi.org/10.1038/s41467-026-77782-9",
+      "issued": {"date-parts": [[2026]]},
+      "author": [
+        {"family": "Szul", "given": "Maciej J."},
+        {"family": "Maspoli", "given": "Matteo G."},
+        {"family": "Shelepenkov", "given": "Danila"},
+        {"family": "Agarwal", "given": "Ishita"},
+        {"family": "Moreau", "given": "Quentin"},
+        {"family": "Gailhard", "given": "Solène"},
+        {"family": "Ferez", "given": "Maxime"},
+        {"family": "Fernandez Pujol", "given": "Carolina"},
+        {"family": "Zhu", "given": "Yunkai"},
+        {"family": "Hiba", "given": "Bassem"},
+        {"family": "Daligault", "given": "Sébastien"},
+        {"family": "Lamberton", "given": "Franck"},
+        {"family": "Schwartz", "given": "Denis"},
+        {"family": "Mattout", "given": "Jérémie"},
+        {"family": "Bonnefond", "given": "Mathilde"},
+        {"family": "Dykstra", "given": "Andrew R."},
+        {"family": "Bestmann", "given": "Sven"},
+        {"family": "Barnes", "given": "Gareth R."},
+        {"family": "Bonaiuto", "given": "James J."}
+      ]
+    }
+  ]
+}
