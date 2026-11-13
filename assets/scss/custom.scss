@@ -163,6 +163,20 @@
         }
     }
 
+    .calendar-event-details {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+    }
+
+    .calendar-event-video {
+        color: var(--accent-color);
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
     .calendar-event-date {
         flex-shrink: 0;
         font-weight: bold;

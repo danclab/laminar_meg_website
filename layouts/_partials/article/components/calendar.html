@@ -58,12 +58,18 @@
         <div class="calendar-event-list">
     {{- end -}}
 
-    <a href="#cal-day-{{ $d.Format "2006-01-02" }}"
+    {{- $href := printf "#cal-day-%s" ($d.Format "2006-01-02") -}}
+    {{- with $e.video }}{{- $href = . -}}{{- end -}}
+    <a href="{{ $href | safeURL }}"
        id="cal-day-{{ $d.Format "2006-01-02" }}"
-       class="calendar-event">
+       class="calendar-event"
+       {{- with $e.video }} target="_blank" rel="noopener noreferrer"{{ end }}>
       <time class="calendar-event-date" datetime="{{ $d.Format "2006-01-02" }}">{{ $d.Format "02 Jan" }}</time>
-      <span class="calendar-event-title">{{ $e.title }}</span>
-      {{- with $e.description }}<p class="calendar-event-desc">{{ . }}</p>{{ end -}}
+      <div class="calendar-event-details">
+        <span class="calendar-event-title">{{ $e.title }}</span>
+        {{- with $e.description }}<p class="calendar-event-desc">{{ . }}</p>{{ end -}}
+        {{- with $e.video }}<span class="calendar-event-video">Watch recording on YouTube ↗</span>{{ end -}}
+      </div>
     </a>
   {{- end -}}
 
