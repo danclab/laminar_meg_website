@@ -19,7 +19,7 @@ SortBy              = "default"
 
 [sidebar]
     # emoji    = "🍥"
-    subtitle = "The good, the bad and the ugly"
+    subtitle = "The good, the bad, and the ugly"
     avatar   = "img/logo3.png"
 
 [article]
