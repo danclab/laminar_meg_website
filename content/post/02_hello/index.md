@@ -18,7 +18,11 @@ Welcome to the LaminarMEG blog! Solène and I have been putting this site togeth
 
 ## It started with head-casts
 
-When I tell people I work on laminar MEG, I still sometimes get some version of: *Wait, MEG can do that?*  This is a fair question. The cortex is only a few millimetres thick, and MEG is not exactly famous for resolving cortical layers. The important point is that we aren't directly imaging histological layers. We're testing whether magnetic field measurements are better explained by sources at different depths within the cortex, which is a much more constrained problem.
+When I tell people I work on laminar MEG, I still sometimes get some version of: *Wait, MEG can do that?*  This is a fair question. The cortex is only a few millimetres thick, and MEG is not exactly famous for it's spatial resolution (thanks, whoever made this temporal x spatial method resolution figure). 
+
+![Nobody puts baby in a corner](baby.png)
+
+The important point is that we aren't directly imaging histological layers. We're testing whether magnetic field measurements are better explained by sources at different depths within the cortex, which is a much more constrained problem.
 
 Back in 2014, Luzia Troebinger, José David López, Antoine Lutti, David Bradbury, Sven Bestmann, and Gareth Barnes were working on something that made this possible: high-precision MEG. A major source of error in conventional MEG is uncertainty about where the brain is relative to the sensors. Annoyingly, people move in the scanner, and co-registering the MEG recording with the MRI is not perfect. Their solution was to use individually moulded, 3D-printed head-casts to keep the head in a reproducible position. The first ones weren't particularly pretty or comfortable, but they brought movement and co-registration errors down into roughly the millimetre range ([Troebinger et al., 2014](paper:troebingerHighPrecisionAnatomy2014)).
 
