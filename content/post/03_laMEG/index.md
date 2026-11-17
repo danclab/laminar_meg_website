@@ -85,7 +85,7 @@ Our simulations show that depth inference depends on SNR, co-registration accura
 
 For installation, follow the repository instructions. The documented setup uses a dedicated conda environment, FreeSurfer, and an SPM standalone installation configured through `lameg-postinstall`. The README also links to example data for the tutorials.
 
-At the time of writing, the latest [release](link:lameg-releases) is **v0.2.1**. Check which software version your examples require, particularly when working from the development branch, and record the version used for an analysis.
+At the time of writing, the latest [release](link:lameg-releases) is **v0.2.1**. Check which software version your examples require, particularly when working from the latest unreleased code, and record the version or git commit hash used for an analysis.
 
 ## A toolbox, not the community's only pipeline
 
